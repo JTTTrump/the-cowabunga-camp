@@ -79,14 +79,27 @@ export default function FarmMap({
 
   useEffect(() => {
     let alive = true;
-    fetch("/us-states-10m.json")
-      .then((r) => r.json())
-      .then((data) => {
-        if (alive) setTopo(data);
-      })
-      .catch(() => {
-        /* map is progressive enhancement; fail quietly */
-      });
+    // Prefer the vendored copy; fall back to the us-atlas CDN (the source the
+    // prototype used). Map is progressive enhancement — fail quietly.
+    const SOURCES = [
+      "/us-states-10m.json",
+      "https://cdn.jsdelivr.net/npm/us-atlas@3.0.1/states-10m.json",
+    ];
+    (async () => {
+      for (const url of SOURCES) {
+        try {
+          const r = await fetch(url);
+          if (!r.ok) continue;
+          const data = await r.json();
+          if (data?.objects?.states) {
+            if (alive) setTopo(data);
+            return;
+          }
+        } catch {
+          /* try next source */
+        }
+      }
+    })();
     return () => {
       alive = false;
     };
