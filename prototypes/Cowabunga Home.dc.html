@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400&display=swap" rel="stylesheet" />
+<script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js" integrity="sha384-CjloA8y00+1SDAUkjs099PVfnY2KmDC2BZnws9kh8D/lX1s46w6EPhpXdqMfjK6i" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js" integrity="sha384-Ukv1p/xTma6P4/2bY5KzWBw+ydSpXmhCMtyciIQVDJ1RmOxtCYNMF1uXT9T63H67" crossorigin="anonymous"></script>
+<script src="./image-slot.js"></script>
+<script src="./farm-map.js"></script>
+<style>
+  body { margin:0; background:#FFFFFF; -webkit-font-smoothing:antialiased; }
+  a { color:#B4512F; text-decoration:none; }
+  a:hover { color:#1C2925; }
+  .rail::-webkit-scrollbar { display:none; }
+  .rail { scrollbar-width:none; }
+</style>
+</helmet>
+
+<div style="font-family:'DM Sans',Helvetica,sans-serif; color:#1C2925; background:#FFFFFF;">
+
+<!-- STICKY CHROME -->
+<div onMouseLeave="{{ closeMenu }}" style="position:sticky; top:0; z-index:40; background:#FFFFFF; border-bottom:1px solid #D9E2D6;">
+
+  <sc-if value="{{ showUtility }}" hint-placeholder-val="{{ true }}">
+    <div style="background:#FFFFFF; color:#1C2925; display:flex; justify-content:flex-end; align-items:center; gap:26px; padding:8px 40px; font-size:12px; border-bottom:1px solid #D9E2D6;">
+      <span>FAQ</span><span>Gift Cards</span><span>Shop</span><span>Journal</span><span>Contact</span>
+      <span style="cursor:pointer;">⌕ Search</span>
+    </div>
+  </sc-if>
+
+  <header style="display:flex; align-items:center; gap:12px; padding:{{ headerPad }} 24px;">
+    <sc-if value="{{ logoBig }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex; align-items:center; gap:10px; flex:0 0 auto;">
+        <div style="width:38px; height:38px; flex:0 0 auto;">
+          <image-slot id="home-logo" shape="circle" fit="contain" placeholder="Logo"></image-slot>
+        </div>
+        <div style="font-family:'Newsreader',Georgia,serif; font-size:17px; font-weight:700; letter-spacing:-0.01em; white-space:nowrap;">The Cowabunga Camp</div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ logoSmall }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex; align-items:center; gap:9px; flex:0 0 auto;">
+        <div style="width:28px; height:28px; flex:0 0 auto;">
+          <image-slot id="home-logo" shape="circle" fit="contain" placeholder="Logo"></image-slot>
+        </div>
+        <div style="font-family:'Newsreader',Georgia,serif; font-size:14.5px; font-weight:700; letter-spacing:-0.01em; white-space:nowrap;">The Cowabunga Camp</div>
+      </div>
+    </sc-if>
+
+    <nav style="display:flex; flex:1 1 auto; justify-content:space-evenly; align-items:center; font-size:13.5px; font-weight:500; min-width:max-content;">
+      <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="5">
+        <div onMouseEnter="{{ n.enter }}" style="position:relative; padding:10px 3px; cursor:pointer; white-space:nowrap;" style-hover="color:#B4512F;">
+          <span>{{ n.label }}</span>
+
+          <sc-if value="{{ n.showSimple }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute; top:100%; left:50%; margin-left:-125px; width:250px; min-height:300px; background:#FFFFFF; border:1px solid #C9D6C4; box-shadow:0 20px 38px -24px rgba(28,41,37,0.42); display:flex; flex-direction:column; padding:8px 0; z-index:50;">
+              <sc-for list="{{ n.items }}" as="it" hint-placeholder-count="4">
+                <div style="padding:15px 22px; font-size:14.5px; font-weight:500; color:#1C2925; cursor:pointer;" style-hover="background:#F0F5EE; color:#B4512F;">{{ it }}</div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ n.showRegions }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute; top:100%; left:50%; margin-left:-125px; width:250px; min-height:300px; background:#FFFFFF; border:1px solid #C9D6C4; box-shadow:0 20px 38px -24px rgba(28,41,37,0.42); display:flex; flex-direction:column; padding:8px 0; z-index:50;">
+              <sc-for list="{{ regionRows }}" as="r" hint-placeholder-count="5">
+                <div onMouseEnter="{{ r.enter }}" style="{{ r.rowStyle }}">
+                  <span style="font-size:14.5px; font-weight:500;">{{ r.name }}</span>
+                  <span style="font-size:13px; color:#8A9C91;">›</span>
+                </div>
+              </sc-for>
+              <div style="position:absolute; top:-1px; left:100%; width:250px; min-height:300px; background:#FFFFFF; border:1px solid #C9D6C4; border-left:none; box-shadow:0 20px 38px -24px rgba(28,41,37,0.42); display:flex; flex-direction:column; padding:8px 0;">
+                <div style="padding:10px 22px 12px; font-size:10.5px; letter-spacing:0.14em; color:#B4512F; font-weight:600; border-bottom:1px solid #E4EDE1;">{{ activeRegionLabel }}</div>
+                <sc-for list="{{ activeFarms }}" as="f" hint-placeholder-count="4">
+                  <div style="padding:12px 22px; cursor:pointer; display:flex; flex-direction:column; gap:1px;" style-hover="background:#F0F5EE;">
+                    <span style="font-size:14.5px; font-weight:600; color:#1C2925;">{{ f.city }}</span>
+                    <span style="font-size:12.5px; color:#6B7C73;">{{ f.state }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </nav>
+
+    <div style="display:flex; gap:8px; align-items:center; flex:0 0 auto;">
+      <span style="font-size:13px; font-weight:600; padding:9px 13px; border:1.5px solid #1C2925; cursor:pointer; white-space:nowrap;">Become a Partner Farm</span>
+      <span style="font-size:13px; font-weight:600; padding:10px 15px; background:#B4512F; color:#FFF; cursor:pointer; white-space:nowrap;">Book Now</span>
+    </div>
+  </header>
+
+</div>
+
+<!-- HERO -->
+<section style="position:relative; height:620px; background:#1C2925;">
+  <div style="position:absolute; inset:0;">
+    <image-slot id="home-hero" shape="rect" fit="cover" placeholder="Hero video — wide horizontal footage of the lounge pen. Drop a still; swap for your video file."></image-slot>
+  </div>
+  <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(22,33,29,0.18) 0%, rgba(22,33,29,0) 40%, rgba(22,33,29,0.66) 100%); pointer-events:none;"></div>
+  <div style="position:absolute; left:0; bottom:0; padding:0 56px 56px; display:flex; flex-direction:column; align-items:flex-start; gap:14px; pointer-events:none;">
+    <h1 style="font-family:'Newsreader',Georgia,serif; font-size:38px; line-height:1.1; font-weight:700; margin:0; color:#FFFFFF; letter-spacing:-0.01em; text-shadow:0 2px 20px rgba(22,33,29,0.55);">Come sit with the herd.</h1>
+    <div style="font-size:12.5px; letter-spacing:0.2em; text-transform:uppercase; color:#F1E8D5; font-weight:500; text-shadow:0 2px 14px rgba(22,33,29,0.6);">The Shaggy Cow Lounge</div>
+    <span style="font-size:14.5px; font-weight:600; padding:14px 30px; background:#B4512F; color:#FFF; margin-top:8px; pointer-events:auto; cursor:pointer;">Check Availability</span>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section style="padding:40px 40px; background:#FFFFFF;">
+  <div style="max-width:1120px; margin:0 auto; background:#DDE8D9; border:1px solid #C2D4BD; display:grid; grid-template-columns:300px 1fr; gap:0; align-items:stretch;">
+    <div style="position:relative; width:300px; height:300px; min-width:0;">
+      <image-slot id="home-offer" shape="rect" fit="cover" placeholder="Farm lunch board — cheese, honey, bread on a wood table"></image-slot>
+    </div>
+    <div style="display:flex; flex-direction:column; justify-content:center; gap:14px; padding:36px 44px; min-width:0;">
+      <div style="font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:#B4512F; font-weight:600;">Current offer</div>
+      <h2 style="font-family:'Newsreader',Georgia,serif; font-size:30px; line-height:1.15; font-weight:700; margin:0; color:#B4512F;">Lunch's on us.</h2>
+      <p style="font-size:15px; line-height:1.65; color:#4A5A52; margin:0; text-wrap:pretty;">Book any morning session before 11am and we'll set out a farm lunch board for your table — local cheese, honey from the property, fresh bread and something warm from the barn kitchen. It arrives while you're still in the pen, so you can eat with hay in your hair and a cow watching you do it. No code, no catch, no upgrade to select. Just book before eleven and come hungry.</p>
+      <div style="display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin-top:4px;">
+        <span style="font-size:14.5px; font-weight:600; padding:13px 28px; background:#B4512F; color:#FFF; cursor:pointer;">Book With Lunch</span>
+        <span style="font-size:12.5px; font-style:italic; color:#6B7C73;">*Terms and conditions apply</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUR FARMS -->
+<section style="padding:40px 0; background:#FFFFFF;">
+  <div style="padding:0 40px; display:flex; flex-direction:column; gap:14px; align-items:center; text-align:center; margin-bottom:28px;">
+    <div style="font-family:'Newsreader',Georgia,serif; font-size:42px; line-height:1.08; color:#B4512F; font-weight:700;">Our farms</div>
+    <h2 style="font-size:20px; line-height:1.45; font-weight:500; margin:0; color:#1C2925; max-width:44ch;">Eleven farms. One very good afternoon.</h2>
+  </div>
+  <div class="rail" ref="{{ railRef }}" style="display:flex; gap:22px; overflow-x:auto; padding:0 40px 4px; scroll-behavior:smooth;">
+    <sc-for list="{{ farms }}" as="f" hint-placeholder-count="5">
+      <div style="flex:0 0 300px; position:relative; height:380px; cursor:pointer; min-width:0;">
+        <image-slot id="{{ f.slot }}" shape="rect" fit="cover" placeholder="{{ f.ph }}"></image-slot>
+        <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(22,33,29,0) 52%, rgba(22,33,29,0.76) 100%); pointer-events:none;"></div>
+        <div style="position:absolute; left:0; right:0; bottom:0; padding:24px; pointer-events:none;">
+          <div style="font-family:'Newsreader',Georgia,serif; font-size:22px; font-weight:700; color:#FFFFFF; line-height:1.25;">{{ f.label }}</div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="display:flex; justify-content:center; gap:14px; margin-top:24px;">
+    <sc-for list="{{ dots }}" as="d" hint-placeholder-count="3">
+      <div onClick="{{ d.go }}" style="{{ d.style }}"></div>
+    </sc-for>
+  </div>
+  <div style="display:flex; justify-content:center; margin-top:22px;">
+    <span style="font-size:15px; font-weight:600; padding:15px 32px; border:1.5px solid #1C2925; cursor:pointer;">View All Locations</span>
+  </div>
+</section>
+
+<!-- LOUNGING, UPGRADED -->
+<section style="padding:40px 40px; background:#FFFFFF;">
+  <div style="max-width:1280px; margin:0 auto; display:flex; flex-direction:column; gap:40px;">
+    <div style="display:flex; flex-direction:column; gap:14px; align-items:center; text-align:center;">
+      <div style="font-family:'Newsreader',Georgia,serif; font-size:42px; line-height:1.08; color:#B4512F; font-weight:700;">Lounging, upgraded</div>
+      <h2 style="font-size:20px; line-height:1.45; font-weight:500; margin:0; color:#1C2925; max-width:48ch;">There's more to do than sit. Not that sitting isn't the point.</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px;">
+      <sc-for list="{{ upgrades }}" as="u" hint-placeholder-count="3">
+        <div style="position:relative; height:460px; cursor:pointer; min-width:0;">
+          <image-slot id="{{ u.slot }}" shape="rect" fit="cover" placeholder="{{ u.ph }}"></image-slot>
+          <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(22,33,29,0) 40%, rgba(22,33,29,0.78) 100%); pointer-events:none;"></div>
+          <div style="position:absolute; left:0; right:0; bottom:0; padding:32px 28px; display:flex; flex-direction:column; gap:12px; pointer-events:none;">
+            <div style="font-family:'Newsreader',Georgia,serif; font-size:27px; font-weight:700; color:#FFFFFF; line-height:1.15;">{{ u.name }}</div>
+            <div style="font-size:14.5px; color:#DCE7DC; line-height:1.5; max-width:30ch;">{{ u.note }}</div>
+            <span style="font-size:14px; font-weight:600; letter-spacing:0.06em; color:#A9C6A5; margin-top:4px;">{{ u.cta }} →</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- FIND YOUR FARM -->
+<section style="padding:40px 40px; background:#FFFFFF;">
+  <div style="max-width:1180px; margin:0 auto; display:flex; flex-direction:column; gap:18px; align-items:center;">
+    <div style="font-family:'Newsreader',Georgia,serif; font-size:42px; line-height:1.08; color:#B4512F; font-weight:700;">Find your farm</div>
+    <h2 style="font-size:20px; line-height:1.45; font-weight:500; margin:0; color:#1C2925; text-align:center; max-width:44ch;">Odds are there's a herd near you.</h2>
+    <p style="font-size:14.5px; color:#6B7C73; margin:0 0 10px; text-align:center;">Hover a farmhouse to see where it is.</p>
+    <farm-map style="width:100%;"></farm-map>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section style="padding:30px 40px; background:#F1E8D5;">
+  <div style="max-width:1180px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:stretch;">
+    <div style="display:flex; flex-direction:column; gap:10px; min-width:0;">
+      <h2 style="font-family:'Newsreader',Georgia,serif; font-size:22px; line-height:1.15; font-weight:700; margin:0; color:#B4512F;">The reviews don't stop coming in.</h2>
+      <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="2">
+        <div style="background:#FFFFFF; border:1px solid #D9E2D6; padding:14px 18px; display:flex; flex-direction:column; gap:10px; min-width:0;">
+          <p style="font-family:'Newsreader',Georgia,serif; font-size:14.5px; line-height:1.4; margin:0; color:#1C2925; font-weight:700; text-wrap:pretty;">{{ r.quote }}</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; border-top:1px solid #D9E2D6; padding-top:10px;">
+            <span style="font-size:11.5px; color:#6B7C73; min-width:0;">{{ r.who }}</span>
+            <span style="color:#B4512F; font-size:11px; letter-spacing:0.18em; white-space:nowrap;">★★★★★</span>
+          </div>
+        </div>
+      </sc-for>
+      <span style="font-size:13.5px; font-weight:600; padding:11px 24px; background:#B4512F; color:#FFF; cursor:pointer; align-self:flex-start;">See All Reviews</span>
+    </div>
+    <div style="position:relative; height:100%; min-width:0;">
+      <image-slot id="home-reviews" shape="rect" fit="cover" placeholder="Kids and adults interacting with the cows on the farm"></image-slot>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section style="padding:40px 40px 96px; background:#FFFFFF;">
+  <div style="max-width:1000px; margin:0 auto; background:#DDE8D9; border:1px solid #C2D4BD; padding:44px 48px; display:grid; grid-template-columns:1.1fr 1fr; gap:56px; align-items:center;">
+    <div style="display:flex; flex-direction:column; gap:12px; min-width:0;">
+      <h2 style="font-family:'Newsreader',Georgia,serif; font-size:30px; line-height:1.15; font-weight:700; margin:0;">Get the herd in your inbox.</h2>
+      <p style="font-size:15px; line-height:1.6; color:#4A5A52; margin:0; text-wrap:pretty;">New farms, new calves, and first access to peak weekends. About one email a month.</p>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:12px; min-width:0;">
+      <div style="display:flex; gap:0;">
+        <div style="flex:1; border:1.5px solid #1C2925; border-right:none; padding:15px 18px; font-size:15px; color:#8A9C91; min-width:0;">Email address</div>
+        <span style="font-size:15px; font-weight:600; padding:15px 26px; background:#B4512F; color:#FFF; white-space:nowrap; cursor:pointer;">Sign Up</span>
+      </div>
+      <span style="font-size:12.5px; color:#6B7C73; line-height:1.5;">By signing up you agree to our <a href="#privacy">privacy policy</a>.</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#24382F; color:#C3D4C7; padding:60px 40px 32px;">
+  <div style="max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1.7fr 1fr 1fr 1fr; gap:48px;">
+    <div style="display:flex; flex-direction:column; gap:16px; min-width:0;">
+      <div style="font-family:'Newsreader',Georgia,serif; font-size:21px; font-weight:700; color:#F1E8D5;">The Cowabunga Camp</div>
+      <p style="font-size:14.5px; line-height:1.6; margin:0; max-width:34ch;">Highland cow experiences on eleven partner farms across the country.</p>
+      <span style="font-size:14px; font-weight:600; padding:12px 20px; border:1.5px solid #A9C6A5; color:#A9C6A5; align-self:flex-start; cursor:pointer;">Become a Partner Farm</span>
+      <div style="display:flex; gap:16px; margin-top:6px; font-size:13px; letter-spacing:0.08em;">
+        <span>IG</span><span>FB</span><span>TT</span><span>YT</span>
+      </div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:10px; font-size:14.5px; min-width:0;">
+      <div style="font-size:11px; letter-spacing:0.14em; color:#95AE9E; font-weight:600; margin-bottom:5px;">CONNECT</div>
+      <span>Contact Us</span><span>Become a Partner Farm</span><span>Group &amp; Event Enquiries</span>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:10px; font-size:14.5px; min-width:0;">
+      <div style="font-size:11px; letter-spacing:0.14em; color:#95AE9E; font-weight:600; margin-bottom:5px;">HELPFUL LINKS</div>
+      <span>FAQ</span><span>Gift Cards</span><span>Shop</span><span>Journal</span><span>Find a Farm</span><span>The Herd</span><span>Reviews</span>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:10px; font-size:14.5px; min-width:0;">
+      <div style="font-size:11px; letter-spacing:0.14em; color:#95AE9E; font-weight:600; margin-bottom:5px;">BOOK</div>
+      <span>Shaggy Cow Lounge</span><span>Private Farm Tours</span><span>Bottle Feeding</span><span>Glamping Yurts</span><span>Events &amp; Buyouts</span>
+    </div>
+  </div>
+  <div style="max-width:1280px; margin:40px auto 0; border-top:1px solid #3A5449; padding-top:20px; display:flex; justify-content:space-between; font-size:12.5px; color:#95AE9E;">
+    <span>© 2026 The Cowabunga Camp</span>
+    <div style="display:flex; gap:20px;"><span>Terms</span><span>Privacy</span><span>Accessibility</span></div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440}}">
+class Component extends DCLogic {
+  state = { menu: null, region: "EAST", page: 0, pages: 1, scrolled: false };
+
+  constructor(props) {
+    super(props);
+    this.rail = React.createRef();
+    this.measure = this.measure.bind(this);
+    this.onScroll = this.onScroll.bind(this);
+  }
+
+  componentDidMount() {
+    this.measure();
+    window.addEventListener("resize", this.measure);
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+    this.onScroll();
+    // slot images can change rail width after they load
+    this._t = setTimeout(this.measure, 600);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.measure);
+    window.removeEventListener("scroll", this.onScroll);
+    clearTimeout(this._t);
+  }
+
+  onScroll() {
+    const y = window.scrollY || document.documentElement.scrollTop || 0;
+    const next = y > 60;
+    if (next !== this.state.scrolled) this.setState({ scrolled: next });
+  }
+
+  stride() {
+    const el = this.rail.current;
+    return el ? Math.max(1, el.clientWidth - 80) : 1;
+  }
+
+  measure() {
+    const el = this.rail.current;
+    if (!el) return;
+    const maxScroll = Math.max(0, el.scrollWidth - el.clientWidth);
+    const pages = Math.max(1, Math.ceil(maxScroll / this.stride()) + 1);
+    if (pages !== this.state.pages) this.setState({ pages });
+  }
+
+  open(k) { this.setState({ menu: k }); }
+
+  goPage(i) {
+    const el = this.rail.current;
+    this.setState({ page: i });
+    if (!el) return;
+    const maxScroll = Math.max(0, el.scrollWidth - el.clientWidth);
+    el.scrollLeft = Math.min(i * this.stride(), maxScroll);
+  }
+
+  renderVals() {
+    const m = this.state.menu;
+
+    const REGIONS = [
+      { name: "EAST", farms: [
+        { city: "Asheville", state: "North Carolina" },
+        { city: "Jacksonville", state: "Florida" },
+        { city: "Nashville", state: "Tennessee" },
+        { city: "Ocala", state: "Florida" }
+      ] },
+      { name: "MIDWEST", farms: [
+        { city: "Ann Arbor", state: "Michigan" },
+        { city: "Madison", state: "Wisconsin" }
+      ] },
+      { name: "MOUNTAIN WEST", farms: [
+        { city: "Bozeman", state: "Montana" },
+        { city: "Fort Collins", state: "Colorado" }
+      ] },
+      { name: "SOUTHWEST", farms: [
+        { city: "Fredericksburg", state: "Texas" },
+        { city: "Scottsdale", state: "Arizona" }
+      ] },
+      { name: "WEST", farms: [
+        { city: "Sonoma", state: "California" }
+      ] }
+    ];
+
+    const active = REGIONS.find(r => r.name === this.state.region) || REGIONS[0];
+
+    const panels = {
+      stays: ["Glamping Yurts", "VIP Cabana", "Farm Stays", "Gift a Stay"],
+      experiences: ["Shaggy Cow Lounge", "Private Farm Tours", "Bottle Feeding", "Events & Buyouts"],
+      events: ["Weddings", "Corporate Retreats", "Birthdays & Parties", "Full Farm Buyout"],
+      about: ["Our Story", "The Herd", "Press", "Journal"]
+    };
+
+    // alphabetical by city
+    const farmList = [
+      { city: "Ann Arbor", state: "Michigan" },
+      { city: "Asheville", state: "North Carolina" },
+      { city: "Bozeman", state: "Montana" },
+      { city: "Fort Collins", state: "Colorado" },
+      { city: "Fredericksburg", state: "Texas" },
+      { city: "Jacksonville", state: "Florida" },
+      { city: "Madison", state: "Wisconsin" },
+      { city: "Nashville", state: "Tennessee" },
+      { city: "Ocala", state: "Florida" },
+      { city: "Scottsdale", state: "Arizona" },
+      { city: "Sonoma", state: "California" }
+    ];
+
+    const dotBase = "width:15px; height:15px; border-radius:50%; cursor:pointer; transition:background 160ms ease, border-color 160ms ease;";
+
+    return {
+      navItems: ["Locations", "Stays", "Experiences", "Events", "About"].map(label => {
+        const key = label.toLowerCase();
+        return {
+          label,
+          enter: () => this.open(key),
+          showRegions: key === "locations" && m === "locations",
+          showSimple: key !== "locations" && m === key,
+          items: panels[key] || []
+        };
+      }),
+      closeMenu: () => this.setState({ menu: null }),
+
+      showUtility: !this.state.scrolled,
+      logoBig: !this.state.scrolled,
+      logoSmall: this.state.scrolled,
+      headerPad: this.state.scrolled ? "9px" : "16px",
+
+      regionRows: REGIONS.map(r => {
+        const on = r.name === this.state.region;
+        return {
+          name: r.name,
+          enter: () => this.setState({ region: r.name }),
+          rowStyle: "display:flex; justify-content:space-between; align-items:center; padding:15px 22px; cursor:pointer;"
+            + (on ? " background:#F0F5EE; color:#B4512F; box-shadow:inset 3px 0 0 #B4512F;" : "")
+        };
+      }),
+      activeRegionLabel: active.name,
+      activeFarms: active.farms,
+
+      railRef: this.rail,
+      farms: farmList.map((f, i) => ({
+        label: f.city + ", " + f.state,
+        slot: "home-farm" + i,
+        ph: "Photo of the " + f.city + " farm"
+      })),
+      dots: Array.from({ length: this.state.pages }, (_, i) => i).map(i => ({
+        go: () => this.goPage(i),
+        style: dotBase + (this.state.page === i
+          ? " background:#B4512F; border:1.5px solid #B4512F;"
+          : " background:transparent; border:1.5px solid #B5C7B0;")
+      })),
+
+      upgrades: [
+        { name: "Private Farm Tours", note: "The whole property, your group only. Two hours, start to finish.", cta: "Explore", slot: "home-up1", ph: "Guests walking the pasture with a host" },
+        { name: "Glamping Yurts", note: "Stay the night. The herd is right there in the morning.", cta: "Discover", slot: "home-up2", ph: "Yurt interior at dusk, farm visible outside" },
+        { name: "Events & Buyouts", note: "Weddings, retreats and anything that needs the whole barn.", cta: "Enquire", slot: "home-up3", ph: "Long table set up in the barn for an event" }
+      ],
+
+      reviews: [
+        { quote: "A cow fell asleep in my lap. We both cried.", who: "Placeholder — real review" },
+        { quote: "The animals enjoyed it as much as we did.", who: "Placeholder — real review" }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

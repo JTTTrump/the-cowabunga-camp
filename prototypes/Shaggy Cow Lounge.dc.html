@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..700;1,9..40,400&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400&display=swap" rel="stylesheet" />
+<script src="./image-slot.js"></script>
+<style>
+  body { margin:0; background:#F1E8D5; -webkit-font-smoothing:antialiased; }
+  a { color:#B4512F; text-decoration:none; }
+  a:hover { color:#1C2925; }
+  html { scroll-behavior:smooth; }
+</style>
+</helmet>
+
+<div style="font-family:'DM Sans',Helvetica,sans-serif; color:#1C2925; background:#F1E8D5;">
+
+<!-- UTILITY BAR -->
+<div style="background:#1C2925; color:#F1E8D5; display:flex; justify-content:space-between; align-items:center; padding:9px 40px; font-size:12.5px;">
+  <span style="letter-spacing:0.08em; color:#A9C6A5;">Now booking September dates · 11 partner farms</span>
+  <div style="display:flex; gap:22px;">
+    <span>FAQ</span><span>Gift Cards</span><span>Shop</span><span>Journal</span><span>Contact</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header style="display:grid; grid-template-columns:auto 1fr auto; gap:32px; align-items:center; padding:18px 40px; background:#F1E8D5; border-bottom:1px solid #C9D6C4;">
+  <div style="font-family:'Newsreader',Georgia,serif; font-size:21px; font-weight:700; letter-spacing:-0.01em;">The Cowabunga Camp</div>
+  <nav style="display:flex; gap:26px; justify-content:center; font-size:14.5px; font-weight:500;">
+    <span style="border-bottom:2px solid #B4512F; padding-bottom:2px;">Experiences</span>
+    <span>Stay</span>
+    <span>Farms</span>
+    <span>The Herd</span>
+    <span>About</span>
+  </nav>
+  <div style="display:flex; gap:12px; align-items:center;">
+    <span style="font-size:14px; font-weight:600; padding:10px 16px; border:1.5px solid #1C2925;">Become a Partner Farm</span>
+    <span style="font-size:14px; font-weight:600; padding:12px 22px; background:#B4512F; color:#FFF;">Book Now</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<section style="display:grid; grid-template-columns:1.05fr 1fr; align-items:stretch;">
+  <div style="position:relative; height:560px; min-width:0;">
+    <image-slot id="scl-hero" shape="rect" placeholder="Hero — a guest sitting in the straw with a Highland cow leaning in. Landscape, warm light."></image-slot>
+  </div>
+  <div style="display:flex; flex-direction:column; justify-content:center; gap:26px; padding:72px 64px; background:#FAF6EC; min-width:0;">
+    <div style="font-size:12px; letter-spacing:0.18em; text-transform:uppercase; color:#B4512F; font-weight:600;">The Shaggy Cow Lounge</div>
+    <h1 style="font-family:'Newsreader',Georgia,serif; font-size:56px; line-height:1.05; font-weight:700; margin:0; letter-spacing:-0.02em;">Come sit with the herd.</h1>
+    <p style="font-size:19px; line-height:1.6; color:#4A5A52; margin:0; max-width:40ch; text-wrap:pretty;">An hour in the straw with a thousand pounds of very relaxed Highland cow. No fence between you. No rush. Just you, the herd, and a whole lot of hair.</p>
+    <div style="display:flex; gap:14px; align-items:center; flex-wrap:wrap;">
+      <span style="font-size:16px; font-weight:600; padding:16px 32px; background:#B4512F; color:#FFF;">Book Your Herd Time</span>
+      <span style="font-size:14px; color:#6B7C73;">Under 5s free · Book 2 weeks ahead in peak season</span>
+    </div>
+  </div>
+</section>
+
+<!-- JUMP NAV -->
+<div style="position:sticky; top:0; z-index:20; background:#1C2925; color:#F1E8D5; display:flex; justify-content:space-between; align-items:center; padding:0 40px;">
+  <div style="display:flex;">
+    <sc-for list="{{ anchors }}" as="a" hint-placeholder-count="6">
+      <a href="{{ a.href }}" style="font-size:13.5px; font-weight:500; padding:16px 20px; color:#F1E8D5; letter-spacing:0.02em;" style-hover="background:#2C3B35; color:#A9C6A5;">{{ a.label }}</a>
+    </sc-for>
+  </div>
+  <span style="font-size:13.5px; font-weight:600; padding:9px 20px; background:#B4512F; color:#FFF;">Book Now</span>
+</div>
+
+<!-- WHAT IT IS -->
+<section id="what" style="padding:88px 40px; background:#F1E8D5;">
+  <div style="max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start;">
+    <div style="display:flex; flex-direction:column; gap:22px;">
+      <div style="font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:#B4512F; font-weight:600;">What you're actually booking</div>
+      <h2 style="font-family:'Newsreader',Georgia,serif; font-size:40px; line-height:1.15; font-weight:700; margin:0;">Sixty minutes. Twelve people. One very patient cow.</h2>
+      <p style="font-size:18px; line-height:1.65; color:#4A5A52; margin:0; text-wrap:pretty;">The Lounge is a covered, straw-floored pen where our Highland cows come to be brushed, scratched and admired. You sit on the ground with them. They lean on you. It is not a petting zoo and it is not a tour — it is closer to an hour in a very hairy living room.</p>
+      <p style="font-size:18px; line-height:1.65; color:#4A5A52; margin:0; text-wrap:pretty;">Sessions are capped at twelve so every guest gets real time with the herd rather than a spot in a queue. Cows join the lounge by choice, which is why they stay so calm — and why no two sessions are the same.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:#C9D6C4; border:1px solid #C9D6C4;">
+      <sc-for list="{{ facts }}" as="f" hint-placeholder-count="6">
+        <div style="background:#FAF6EC; padding:26px 24px; display:flex; flex-direction:column; gap:6px;">
+          <div style="font-family:'Newsreader',Georgia,serif; font-size:26px; font-weight:700; color:#B4512F;">{{ f.v }}</div>
+          <div style="font-size:13px; letter-spacing:0.06em; color:#6B7C73; font-weight:500; text-transform:uppercase;">{{ f.k }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- SEQUENCE -->
+<section id="hour" style="padding:88px 40px; background:#FAF6EC; border-top:1px solid #C9D6C4; border-bottom:1px solid #C9D6C4;">
+  <div style="max-width:1280px; margin:0 auto; display:flex; flex-direction:column; gap:48px;">
+    <div style="display:flex; justify-content:space-between; align-items:end; gap:40px;">
+      <div style="display:flex; flex-direction:column; gap:16px; max-width:56ch;">
+        <div style="font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:#B4512F; font-weight:600;">Your hour, minute by minute</div>
+        <h2 style="font-family:'Newsreader',Georgia,serif; font-size:40px; line-height:1.15; font-weight:700; margin:0;">No surprises. Except the licking.</h2>
+      </div>
+      <span style="font-size:15px; color:#6B7C73; text-align:right; line-height:1.6; max-width:30ch;">Arrive ten minutes early. Wear something you don't mind getting hair on.</span>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:0;">
+      <sc-for list="{{ steps }}" as="s" hint-placeholder-count="5">
+        <div style="display:flex; flex-direction:column; gap:16px; padding-right:28px; border-top:2px solid #C9D6C4; padding-top:20px; position:relative;">
+          <div style="position:absolute; top:-9px; left:0; width:16px; height:16px; border-radius:50%; background:#B4512F; border:2px solid #FAF6EC;"></div>
+          <div style="font-size:12.5px; letter-spacing:0.1em; color:#B4512F; font-weight:600;">{{ s.time }}</div>
+          <div style="font-size:18px; font-weight:600; line-height:1.25;">{{ s.title }}</div>
+          <p style="font-size:14.5px; line-height:1.6; color:#4A5A52; margin:0; text-wrap:pretty;">{{ s.body }}</p>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- TIERS -->
+<section id="tiers" style="padding:88px 40px; background:#F1E8D5;">
+  <div style="max-width:1280px; margin:0 auto; display:flex; flex-direction:column; gap:44px;">
+    <div style="display:flex; flex-direction:column; gap:16px; align-items:center; text-align:center;">
+      <div style="font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:#B4512F; font-weight:600;">Pick your pasture</div>
+      <h2 style="font-family:'Newsreader',Georgia,serif; font-size:40px; line-height:1.15; font-weight:700; margin:0; max-width:20ch;">Three ways to spend an afternoon.</h2>
+      <p style="font-size:17px; line-height:1.6; color:#4A5A52; margin:0; max-width:56ch; text-wrap:pretty;">Every option puts you in the pen with the herd. What changes is how long you stay, how close you get, and how much of the farm is yours.</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px; align-items:start;">
+      <sc-for list="{{ tiers }}" as="t" hint-placeholder-count="3">
+        <div>
+          <sc-if value="{{ t.isBadged }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#F4F8F1; border:2px solid #B4512F; padding:40px 28px; display:flex; flex-direction:column; gap:20px; box-shadow:0 18px 40px -24px rgba(28,41,37,0.45);">
+              <div style="font-size:11px; letter-spacing:0.14em; font-weight:600; color:#FFF; background:#B4512F; padding:6px 12px; align-self:flex-start;">MOST BOOKED</div>
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <div style="font-family:'Newsreader',Georgia,serif; font-size:27px; font-weight:700; line-height:1.15;">{{ t.name }}</div>
+                <div style="font-size:14.5px; color:#6B7C73; font-weight:500;">{{ t.meta }}</div>
+              </div>
+              <p style="font-size:15.5px; line-height:1.6; color:#4A5A52; margin:0; text-wrap:pretty;">{{ t.pitch }}</p>
+              <div style="display:flex; flex-direction:column; gap:11px; border-top:1px solid #DDE7DA; padding-top:20px;">
+                <sc-for list="{{ t.includes }}" as="inc" hint-placeholder-count="5">
+                  <div style="display:grid; grid-template-columns:18px 1fr; gap:10px; align-items:start;">
+                    <span style="color:#B4512F; font-size:15px; line-height:1.4;">✓</span>
+                    <span style="font-size:15px; line-height:1.45;">{{ inc }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="font-size:15.5px; font-weight:600; padding:16px; background:#B4512F; color:#FFF; text-align:center; margin-top:4px; cursor:pointer;">{{ t.cta }}</div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ t.isStandard }}" hint-placeholder-val="{{ true }}">
+            <div style="background:#FAF6EC; border:1px solid #C9D6C4; padding:32px 28px; display:flex; flex-direction:column; gap:20px;">
+              <div style="display:flex; flex-direction:column; gap:8px;">
+                <div style="font-family:'Newsreader',Georgia,serif; font-size:27px; font-weight:700; line-height:1.15;">{{ t.name }}</div>
+                <div style="font-size:14.5px; color:#6B7C73; font-weight:500;">{{ t.meta }}</div>
+              </div>
+              <p style="font-size:15.5px; line-height:1.6; color:#4A5A52; margin:0; text-wrap:pretty;">{{ t.pitch }}</p>
+              <div style="display:flex; flex-direction:column; gap:11px; border-top:1px solid #DDE7DA; padding-top:20px;">
+                <sc-for list="{{ t.includes }}" as="inc" hint-placeholder-count="4">
+                  <div style="display:grid; grid-template-columns:18px 1fr; gap:10px; align-items:start;">
+                    <span style="color:#B4512F; font-size:15px; line-height:1.4;">✓</span>
+                    <span style="font-size:15px; line-height:1.45;">{{ inc }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="font-size:15.5px; font-weight:600; padding:15px; border:1.5px solid #1C2925; text-align:center; margin-top:4px; cursor:pointer;">{{ t.cta }}</div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:flex; justify-content:center;">
+      <p style="font-size:14.5px; color:#6B7C73; text-align:center; max-width:60ch; line-height:1.6; margin:0;">Feed buckets, build-a-stuffy kits and the Sunday after-party are offered once your date is held — no need to decide now.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HERD -->
+<section id="herd" style="padding:88px 40px; background:#1C2925; color:#F1E8D5;">
+  <div style="max-width:1280px; margin:0 auto; display:flex; flex-direction:column; gap:44px;">
+    <div style="display:flex; justify-content:space-between; align-items:end; gap:40px;">
+      <div style="display:flex; flex-direction:column; gap:16px; max-width:52ch;">
+        <div style="font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:#A9C6A5; font-weight:600;">Meet the herd</div>
+        <h2 style="font-family:'Newsreader',Georgia,serif; font-size:40px; line-height:1.15; font-weight:700; margin:0;">They're the whole point.</h2>
+      </div>
+      <span style="font-size:15px; font-weight:600; padding:13px 24px; border:1.5px solid #A9C6A5; color:#A9C6A5;">See the Full Herd</span>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px;">
+      <sc-for list="{{ herd }}" as="c" hint-placeholder-count="4">
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div style="position:relative; width:100%; aspect-ratio:1/1; min-width:0;">
+            <image-slot id="{{ c.slot }}" shape="rect" placeholder="{{ c.ph }}"></image-slot>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:4px;">
+            <div style="font-family:'Newsreader',Georgia,serif; font-size:21px; font-weight:700;">{{ c.name }}</div>
+            <div style="font-size:14px; color:#B7C7BC; line-height:1.5;">{{ c.trait }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- KNOW BEFORE YOU GO -->
+<section id="know" style="padding:88px 40px; background:#FAF6EC;">
+  <div style="max-width:1280px; margin:0 auto; display:flex; flex-direction:column; gap:44px;">
+    <div style="display:flex; flex-direction:column; gap:16px; align-items:center; text-align:center;">
+      <div style="font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:#B4512F; font-weight:600;">Know before you go</div>
+      <h2 style="font-family:'Newsreader',Georgia,serif; font-size:40px; line-height:1.15; font-weight:700; margin:0;">No bull, just the details.</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:#C9D6C4; border:1px solid #C9D6C4;">
+      <sc-for list="{{ knows }}" as="k" hint-placeholder-count="8">
+        <div style="background:#FAF6EC; padding:30px 26px; display:flex; flex-direction:column; gap:10px; align-items:center; text-align:center;">
+          <div style="width:34px; height:34px; border:1.5px solid #B4512F; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; color:#B4512F;">{{ k.icon }}</div>
+          <div style="font-size:15.5px; font-weight:600;">{{ k.title }}</div>
+          <div style="font-size:14px; line-height:1.55; color:#4A5A52; text-wrap:pretty;">{{ k.body }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section style="padding:0; background:#F1E8D5;">
+  <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0;">
+    <div style="position:relative; aspect-ratio:1/1; min-width:0;"><image-slot id="scl-g1" shape="rect" placeholder="Guest brushing a cow"></image-slot></div>
+    <div style="position:relative; aspect-ratio:1/1; min-width:0;"><image-slot id="scl-g2" shape="rect" placeholder="Two friends laughing in the straw"></image-slot></div>
+    <div style="position:relative; aspect-ratio:1/1; min-width:0;"><image-slot id="scl-g3" shape="rect" placeholder="Close-up of a Highland cow's face"></image-slot></div>
+    <div style="position:relative; aspect-ratio:1/1; min-width:0;"><image-slot id="scl-g4" shape="rect" placeholder="Wide shot of the lounge pen at golden hour"></image-slot></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="padding:88px 40px; background:#F1E8D5;">
+  <div style="max-width:900px; margin:0 auto; display:flex; flex-direction:column; gap:40px;">
+    <div style="display:flex; flex-direction:column; gap:16px;">
+      <div style="font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:#B4512F; font-weight:600;">Questions</div>
+      <h2 style="font-family:'Newsreader',Georgia,serif; font-size:40px; line-height:1.15; font-weight:700; margin:0;">Udderly reasonable things to ask.</h2>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:2px;">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="6">
+        <div style="border:1px solid #C9D6C4; background:#FAF6EC;">
+          <div onClick="{{ f.toggle }}" style="display:grid; grid-template-columns:1fr 24px; gap:16px; align-items:center; padding:20px 24px; cursor:pointer;" style-hover="background:#F0F5EE;">
+            <span style="font-size:17px; font-weight:600;">{{ f.q }}</span>
+            <span style="font-size:20px; color:#B4512F; text-align:center;">{{ f.sign }}</span>
+          </div>
+          <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:0 24px 22px; font-size:16px; line-height:1.65; color:#4A5A52; max-width:70ch; text-wrap:pretty;">{{ f.a }}</div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section style="padding:0; background:#1C2925;">
+  <div style="display:grid; grid-template-columns:1fr 1fr; align-items:stretch;">
+    <div style="position:relative; height:440px; min-width:0;">
+      <image-slot id="scl-close" shape="rect" placeholder="Closing image — herd at dusk, wide"></image-slot>
+    </div>
+    <div style="display:flex; flex-direction:column; justify-content:center; gap:24px; padding:80px 64px; color:#F1E8D5; min-width:0;">
+      <div style="font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:#A9C6A5; font-weight:600;">Ready when you are</div>
+      <h2 style="font-family:'Newsreader',Georgia,serif; font-size:44px; line-height:1.1; font-weight:700; margin:0;">Moo-ve on it.</h2>
+      <p style="font-size:18px; line-height:1.6; color:#B7C7BC; margin:0; max-width:38ch; text-wrap:pretty;">Weekend sessions fill about two weeks out, and the herd doesn't take walk-ins.</p>
+      <div style="display:flex; gap:14px; flex-wrap:wrap;">
+        <span style="font-size:16px; font-weight:600; padding:16px 32px; background:#B4512F; color:#FFF;">Book Your Herd Time</span>
+        <span style="font-size:16px; font-weight:600; padding:16px 32px; border:1.5px solid #A9C6A5; color:#A9C6A5;">Give It as a Gift</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background:#16211D; color:#B7C7BC; padding:56px 40px 32px;">
+  <div style="max-width:1280px; margin:0 auto; display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:48px;">
+    <div style="display:flex; flex-direction:column; gap:14px;">
+      <div style="font-family:'Newsreader',Georgia,serif; font-size:20px; font-weight:700; color:#F1E8D5;">The Cowabunga Camp</div>
+      <p style="font-size:14.5px; line-height:1.6; margin:0; max-width:34ch;">Highland cow experiences on eleven partner farms.</p>
+      <span style="font-size:14px; font-weight:600; padding:11px 18px; border:1.5px solid #A9C6A5; color:#A9C6A5; align-self:flex-start;">Become a Partner Farm</span>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:10px; font-size:14.5px;">
+      <div style="font-size:11px; letter-spacing:0.12em; color:#7E9186; font-weight:600; margin-bottom:4px;">EXPERIENCES</div>
+      <span>Shaggy Cow Lounge</span><span>Private Farm Tours</span><span>Bottle Feeding</span><span>Events &amp; Buyouts</span><span>Glamping</span>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:10px; font-size:14.5px;">
+      <div style="font-size:11px; letter-spacing:0.12em; color:#7E9186; font-weight:600; margin-bottom:4px;">VISIT</div>
+      <span>Find a Farm</span><span>The Herd</span><span>FAQ</span><span>Contact</span>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:10px; font-size:14.5px;">
+      <div style="font-size:11px; letter-spacing:0.12em; color:#7E9186; font-weight:600; margin-bottom:4px;">MORE</div>
+      <span>Gift Cards</span><span>Shop</span><span>Journal</span><span>Press</span>
+    </div>
+  </div>
+  <div style="max-width:1280px; margin:36px auto 0; border-top:1px solid #26332E; padding-top:20px; display:flex; justify-content:space-between; font-size:12.5px; color:#7E9186;">
+    <span>© 2026 The Cowabunga Camp</span>
+    <div style="display:flex; gap:20px;"><span>Terms</span><span>Privacy</span><span>Accessibility</span></div>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440},&quot;showPrices&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Selling&quot;,&quot;label&quot;:&quot;Show prices on tier cards&quot;},&quot;badgedTier&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;General Admission&quot;,&quot;Lounge + Feed&quot;,&quot;VIP Cabana&quot;],&quot;default&quot;:&quot;Lounge + Feed&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Selling&quot;,&quot;label&quot;:&quot;Which tier carries the badge&quot;}}">
+class Component extends DCLogic {
+  state = { open: 0 };
+
+  renderVals() {
+    const badged = this.props.badgedTier ?? "Lounge + Feed";
+    const showPrices = this.props.showPrices ?? false;
+
+    const tierData = [
+      { name: "General Admission", meta: "60 minutes · up to 12 guests",
+        price: "$29.50 per person",
+        pitch: "The herd, the straw and an hour to yourself. The way most people meet a Highland cow for the first time.",
+        includes: ["60 minutes inside the lounge pen", "Brushes and grooming combs provided", "Photos encouraged, no time limit on them", "Covered seating and shade"],
+        cta: "Book General Admission" },
+      { name: "Lounge + Feed", meta: "90 minutes · up to 12 guests",
+        price: "$54 per person",
+        pitch: "The same hour, plus the part everyone actually came for: a feed bucket in your lap and a cow deciding you're worth walking over for.",
+        includes: ["Everything in General Admission", "90 minutes instead of 60", "A feed bucket per guest", "Bottle feeding when calves are on milk", "Reserved seating at the rail", "A host with you the whole session"],
+        cta: "Book Lounge + Feed" },
+      { name: "VIP Cabana", meta: "All day · up to 8 guests",
+        price: "From $450 per group",
+        pitch: "A private cabana at the edge of the pasture, yours from open to close. Come and go, eat, nap, and have the herd brought to you.",
+        includes: ["Everything in Lounge + Feed", "Private cabana for the full day", "Unlimited re-entry to the lounge", "A dedicated host for your group", "Farm board and drinks on arrival", "First pick of session times"],
+        cta: "Book a Cabana" }
+    ];
+
+    const tiers = tierData.map(t => {
+      const isBadged = t.name === badged;
+      return {
+        name: t.name,
+        meta: showPrices ? t.price + " · " + t.meta : t.meta,
+        pitch: t.pitch,
+        includes: t.includes,
+        cta: t.cta,
+        isBadged: isBadged,
+        isStandard: !isBadged
+      };
+    });
+
+    const faqData = [
+      { q: "Do the cows actually want us there?",
+        a: "They opt in. The lounge gate stays open to the pasture and cows wander in when they feel like company — which, after a few years of being brushed by strangers, is most of the time. If a cow leaves mid-session, another usually takes her spot." },
+      { q: "Is this safe for kids?",
+        a: "Yes, and under-5s come free. Highland cows are famously gentle, and a host stays in the pen for every session. That said, they are large animals, so children under 12 need an adult sitting with them." },
+      { q: "What should I wear?",
+        a: "Closed-toe shoes you don't love, and clothes you don't mind wearing cow hair home in. There is straw, there is mud in spring, and there is a non-zero chance of being licked." },
+      { q: "What happens if it rains?",
+        a: "The lounge is covered, so sessions run in almost any weather. We only cancel for lightning or high wind, and if we do you get a full refund or a free rebook, your choice." },
+      { q: "Can I bring my dog?",
+        a: "Not into the lounge. The herd is relaxed about people and much less relaxed about dogs. There is shaded parking and water at every partner farm if you need to leave one in the car briefly." },
+      { q: "Can I book the whole thing for a group?",
+        a: "Yes. Anything over twelve guests, or any private event, goes through Events & Buyouts rather than the standard booking — we will match you to the farm with the right space." }
+    ];
+
+    return {
+      anchors: [
+        { label: "What it is", href: "#what" },
+        { label: "Your hour", href: "#hour" },
+        { label: "Pick your pasture", href: "#tiers" },
+        { label: "The herd", href: "#herd" },
+        { label: "Know before you go", href: "#know" },
+        { label: "Questions", href: "#faq" }
+      ],
+      facts: [
+        { v: "60 min", k: "Standard session" },
+        { v: "12", k: "Guests, maximum" },
+        { v: "11", k: "Partner farms" },
+        { v: "Year round", k: "Weather permitting" },
+        { v: "Free", k: "Under 5s" },
+        { v: "48 hrs", k: "Free cancellation" }
+      ],
+      steps: [
+        { time: "0:00", title: "Check in at the barn",
+          body: "Meet your host, leave bags in a locker and get the two-minute version of how to greet a cow." },
+        { time: "0:10", title: "Into the pen",
+          body: "Shoes off the path, into the straw. The herd is already there. You sit; they investigate." },
+        { time: "0:20", title: "Brushes out",
+          body: "Grooming is how a Highland cow decides it likes you. Pick a comb, pick a cow, get to work." },
+        { time: "0:40", title: "The lean",
+          body: "Somewhere around here a cow will put her full weight against you and close her eyes. This is the part people tell their friends about." },
+        { time: "0:55", title: "Wash up and out",
+          body: "Sinks by the gate, hair everywhere, farm store on your way to the car." }
+      ],
+      tiers,
+      herd: [
+        { name: "Marge", trait: "Fourteen years old, entirely in charge, will lean until you fall over.", slot: "scl-cow1", ph: "Portrait — Marge" },
+        { name: "Biscuit", trait: "The friendliest of the bunch. Comes to the gate before you do.", slot: "scl-cow2", ph: "Portrait — Biscuit" },
+        { name: "Tater", trait: "Two years old and still learning that people are not for licking. Losing that battle.", slot: "scl-cow3", ph: "Portrait — Tater" },
+        { name: "Winnie", trait: "Shy for the first ten minutes, glued to you for the last forty.", slot: "scl-cow4", ph: "Portrait — Winnie" }
+      ],
+      knows: [
+        { icon: "☂", title: "Rain or shine", body: "The lounge is covered. Only lightning stops us." },
+        { icon: "👟", title: "Closed-toe shoes", body: "Required. Straw, mud and hooves." },
+        { icon: "🅿", title: "Free parking", body: "On site at every partner farm." },
+        { icon: "♿", title: "Step-free access", body: "Nine of eleven farms. Ask us which." },
+        { icon: "🚻", title: "Restrooms", body: "At the barn, thirty seconds from the pen." },
+        { icon: "🐕", title: "No dogs", body: "Not in the lounge. Shaded parking available." },
+        { icon: "👶", title: "Under 5s free", body: "Kids under 12 need an adult beside them." },
+        { icon: "↩", title: "48-hour cancellation", body: "Full refund, no questions." }
+      ],
+      faqs: faqData.map((f, i) => ({
+        q: f.q,
+        a: f.a,
+        open: this.state.open === i,
+        sign: this.state.open === i ? "−" : "+",
+        toggle: () => this.setState(s => ({ open: s.open === i ? -1 : i }))
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

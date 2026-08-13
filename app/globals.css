@@ -1,0 +1,122 @@
+/* ------------------------------------------------------------------ *
+ * The Cowabunga Camp — global styles
+ * Design tokens live inline (per handoff spec, exact literals). This
+ * file holds only what inline styles can't express: resets, font
+ * wiring, hover/focus states, and the horizontal-rail scrollbar hide.
+ * ------------------------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: var(--font-dm-sans), Helvetica, sans-serif;
+  color: #1c2925;
+}
+
+a {
+  color: #b4512f;
+  text-decoration: none;
+}
+a:hover {
+  color: #1c2925;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+/* Horizontal farm rail — hide scrollbar, keep scroll */
+.rail {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.rail::-webkit-scrollbar {
+  display: none;
+}
+
+/* ---- Homepage nav ---- */
+.home-nav-item {
+  transition: color 140ms ease;
+}
+.home-nav-item:hover {
+  color: #b4512f;
+}
+
+/* Dropdown rows (simple panels + farm rows) */
+.dd-row {
+  transition: background 120ms ease, color 120ms ease;
+}
+.dd-row:hover {
+  background: #f0f5ee;
+  color: #b4512f;
+}
+.farm-row {
+  transition: background 120ms ease;
+}
+.farm-row:hover {
+  background: #f0f5ee;
+}
+
+/* ---- Buttons: subtle darken on hover (production polish) ---- */
+.btn {
+  transition: background 140ms ease, color 140ms ease, border-color 140ms ease,
+    opacity 140ms ease;
+  text-align: center;
+  user-select: none;
+}
+.btn-primary:hover {
+  background: #9c4529 !important;
+}
+.btn-outline-dark:hover {
+  background: #1c2925 !important;
+  color: #ffffff !important;
+}
+.btn-outline-sage:hover {
+  background: #a9c6a5 !important;
+  color: #16211d !important;
+}
+
+/* ---- Lounge jump-nav ---- */
+.jump-link {
+  transition: background 120ms ease, color 120ms ease;
+}
+.jump-link:hover {
+  background: #2c3b35;
+  color: #a9c6a5 !important;
+}
+
+/* ---- FAQ accordion rows ---- */
+.faq-head {
+  transition: background 120ms ease;
+}
+.faq-head:hover {
+  background: #f0f5ee;
+}
+
+/* Focusable interactive spans (buttons rendered as spans) */
+.tap {
+  cursor: pointer;
+}
+
+/* Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    transition: none !important;
+  }
+}
